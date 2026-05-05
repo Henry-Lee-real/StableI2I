@@ -1,0 +1,2 @@
+{"id":"case-1","input_image":"example/000155856.jpg","output_image":"example/000155856_dup2.png","prompt":"Add a wooden bench along the path."}
+{"id":"case-2","input_image":"example/0164.png","output_image":"example/0164_out.png","prompt":"Restore the image."}
