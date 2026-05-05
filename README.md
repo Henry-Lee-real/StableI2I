@@ -13,12 +13,7 @@ Looking forward to your ⭐！
 > - [ ] ICML version paper
 
 ## Core Concept:
-StableI2I is a vision-language evaluator for image-to-image generation. Given a before image, an after image, and an editing prompt, it checks whether the intended edit is correct while preserved regions remain stable.
-
-The current release focuses on three aspects:
-- `Semantic`: unintended additions, removals, or replacements in preserved regions
-- `Structure`: misalignment or repainting in preserved regions
-- `Low-Level`: blur, noise, color cast, exposure degradation, or artifacts in preserved regions
+In most real-world image-to-image (I2I) scenarios, existing evaluations primarily focus on instruction following and the perceptual quality or aesthetics of the generated images. However, they largely fail to assess whether the output image preserves the semantic correspondence and spatial structure of the input image. To address this limitation, we propose StableI2I, a unified and dynamic evaluation framework that explicitly measures content fidelity and pre--post consistency across a wide range of I2I tasks without requiring reference images, including image editing and image restoration. In addition, we construct StableI2I-Bench, a benchmark designed to systematically evaluate the accuracy of MLLMs on such fidelity and consistency assessment tasks. Extensive experimental results demonstrate that StableI2I provides accurate, fine-grained, and interpretable evaluations of content fidelity and consistency, with strong correlations to human subjective judgments. Our framework serves as a practical and reliable evaluation tool for diagnosing content consistency and benchmarking model performance in real-world I2I systems.
 
 ## Environment Setting:
 Install dependencies:
@@ -27,14 +22,8 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-The runtime is based on Qwen3-VL, so the environment should follow the official Qwen3-VL setup for CUDA, model weights, and Transformers compatibility.
+The specific environment is consistent with that of Qwen3-VL.
 
-Useful environment variables:
-
-```bash
-set MODEL_PATH=path\to\ckpt
-set GPU_ID=0
-```
 
 ## APP Usage:
 `app.py` is the local web demo and API entry. Running it starts a FastAPI service with a browser UI.
@@ -42,7 +31,7 @@ set GPU_ID=0
 Example:
 
 ```bash
-set MODEL_PATH=path\to\ckpt
+set MODEL_PATH=path/to/ckpt
 set GPU_ID=0
 set HOST=127.0.0.1
 set PORT=10004
@@ -61,10 +50,10 @@ The demo supports:
 - inference by image upload
 - summarized semantic / structure / low-level results
 
-## inference
+## Inference
 See [infer.md](./infer.md).
+
 ## Training
-Training code is not separately packaged in this repository yet.
 
 Recommended official references:
 - Qwen3-VL: [QwenLM/Qwen3-VL](https://github.com/QwenLM/Qwen3-VL)
