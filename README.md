@@ -12,8 +12,8 @@ Looking forward to your ⭐！
 > - [ ] release arxiv
 > - [ ] ICML version paper
 
-[![HuggingFace](https://img.shields.io/badge/HuggingFace-DiTFuse-ffcc4d?logo=huggingface&logoColor=white&style=flat)](https://huggingface.co/lijiayangCS/DiTFuse)
-[![Project Page](https://img.shields.io/badge/Project%20Page-DiTFuse-blue?style=flat)](https://ronniejiang.github.io/DiTFuse/)
+[![HuggingFace](https://img.shields.io/badge/HuggingFace-StableI2I-ffcc4d?logo=huggingface&logoColor=white&style=flat)](https://huggingface.co/collections/lijiayangCS/stablei2i)
+[![Project Page](https://img.shields.io/badge/Project%20Page-StableI2I-blue?style=flat)](https://henry-lee-real.github.io/StableI2I_Page/)
 
 ## Core Concept:
 In most real-world image-to-image (I2I) scenarios, existing evaluations primarily focus on instruction following and the perceptual quality or aesthetics of the generated images. However, they largely fail to assess whether the output image preserves the semantic correspondence and spatial structure of the input image. To address this limitation, we propose StableI2I, a unified and dynamic evaluation framework that explicitly measures content fidelity and pre--post consistency across a wide range of I2I tasks without requiring reference images, including image editing and image restoration. In addition, we construct StableI2I-Bench, a benchmark designed to systematically evaluate the accuracy of MLLMs on such fidelity and consistency assessment tasks. Extensive experimental results demonstrate that StableI2I provides accurate, fine-grained, and interpretable evaluations of content fidelity and consistency, with strong correlations to human subjective judgments. Our framework serves as a practical and reliable evaluation tool for diagnosing content consistency and benchmarking model performance in real-world I2I systems.
