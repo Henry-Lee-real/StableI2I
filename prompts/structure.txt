@@ -1,0 +1,6 @@
+Please determine whether the texture-consistent regions that should remain unchanged between the pre- and post-process images are indeed consistent (for example, unchanged areas remain identical, or for restoration tasks, whether the overall texture and color are consistent).
+If no specific task type is given, simply judge whether the two images are identical.
+Major inconsistencies generally fall into two categories: structural misalignment, texture repainting.
+Return your decision in a single line of valid JSON with the format:
+{"answer": "Yes", "problem": "NULL"} if the images are consistent,
+otherwise {"answer": "No", "problem": ["misalignment", "repainting"]}.

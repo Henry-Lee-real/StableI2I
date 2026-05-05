@@ -1,0 +1,6 @@
+Please determine whether the pre-processed image has undergone any low-level degradation or shift after processing. Specifically, check whether there is any degradation (for example, blur, noise), color cast, or newly introduced artifacts. If the processing described in the task type is explicitly related to any of the above (for example, denoising, deblurring, color correction, artifact removal), then this case should be ignored.
+If no specific task type is given, simply judge whether the two images are identical.
+Return your decision in a single line of valid JSON with the format:
+In the ignored case, output {"answer": "NULL", "problem": "NULL"},
+{"answer": "Yes", "problem": "NULL"} if the images are consistent,
+otherwise {"answer": "No", "problem": ["noise", "blur", "color cast", "exposure degradation", "artifact"]}.

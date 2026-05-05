@@ -1,0 +1,6 @@
+Please determine whether the regions that should remain unchanged between the pre- and post-processed images exhibit any semantic errors, that is, whether there are additions, deletions, or modifications of semantic content relative to the pre-processed image.
+If no specific task type is provided, simply determine whether the two images are completely identical.
+Return your decision in a single line of valid JSON with the format:
+{"answer": "Yes", "problem": "NULL"} if the images are consistent,
+otherwise {"answer": "No", "problem": ["add", "replace", "remove"]}.
+"No" is used whenever any potential inconsistency is detected.

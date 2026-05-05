@@ -1,0 +1,34 @@
+The first image <image>: Before processing.
+The second image <image>: After processing.
+The task prompt is: {task_prompt}
+
+You are evaluating whether the AFTER image introduces unintended LOW-LEVEL degradation or shift in regions that should be preserved.
+
+Candidate degradation type(s) (use ONLY these keys if applicable): {problem_json}
+
+Your task is to analyze strictly in two stages:
+
+1) Preservation and scope analysis (think):
+   - Identify the intended target region(s) implied by the task prompt.
+   - State which changes are allowed ONLY if they occur strictly inside the intended target region(s).
+   - Clarify that low-level degradations (noise, blur, color cast, exposure issues, artifacts) are NOT intended unless the task prompt explicitly requests low-level enhancement or removal.
+   - Provide a checklist of what must be preserved (non-target regions or elements) with brief justification.
+   - If the task prompt explicitly requests low-level processing (for example, denoise, deblur, color correction, exposure enhancement, artifact removal), then low-level changes consistent with that request and confined to the intended scope may be treated as allowed; state this in "think".
+
+2) Final answer reporting (answer):
+   - Report ONLY low-level degradations that violate the scope above.
+   - If no violation is found, output an empty object: answer = {{}}.
+   - Use ONLY the keys provided in candidate degradation type(s). Do not invent new keys.
+   - For each key you include, describe where it appears, how it differs from BEFORE, and the visual symptom.
+
+Output MUST be a single valid JSON object and nothing else:
+{{
+  "think": "...",
+  "answer": {{
+    "noise": "...",
+    "blur": "...",
+    "color cast": "...",
+    "exposure degradation": "...",
+    "artifact": "..."
+  }}
+}}

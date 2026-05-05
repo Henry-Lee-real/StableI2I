@@ -1,0 +1,32 @@
+The task prompt is: {task_prompt}
+
+Assume this example DOES contain issues: semantic drift has occurred within regions that should be preserved.
+Initial drift type(s): {problem_json}
+
+Your task is to analyze the problem strictly in two stages. The second stage MUST be derived from the first stage.
+
+1) Preservation analysis (think):
+   - Identify the intended edit target region(s) according to the task prompt.
+   - Explicitly state which changes are allowed or can be ignored because they fall inside the intended edit scope.
+   - Identify the regions or elements that must be preserved (non-edit regions), and list them as a concrete checklist with brief justification.
+   - Carefully verify the initial drift type(s) against the preserved regions.
+     * By default, assume they are correct.
+     * Only if you are confident a drift type does NOT actually apply to violations on preserved regions, you may discard it.
+
+2) Final answer reporting (answer):
+   - Report ONLY issues that violate the preservation checklist defined in the think stage.
+   - Every reported issue must be grounded in the preserved regions identified above.
+   - Anything stated as allowed or ignorable in the think stage MUST NOT appear here.
+   - Use only drift type keys that you have confirmed as applicable after the think stage.
+   - Do NOT include drift types that do not have real violations.
+   - If no valid remaining issue exists, output an empty object for answer: {{}}.
+
+Output MUST be a single valid JSON object and nothing else:
+{{
+  "think": "...",
+  "answer": {{
+    "add": "...",
+    "replace": "...",
+    "remove": "..."
+  }}
+}}
