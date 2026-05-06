@@ -29,6 +29,9 @@ The specific environment is consistent with that of Qwen3-VL.
 
 
 ## APP Usage:
+<img width="1974" height="1211" alt="image" src="https://github.com/user-attachments/assets/8104c802-58c4-4b63-bb44-f86158f960d2" />
+
+
 `app.py` is the local web demo and API entry. Running it starts a FastAPI service with a browser UI.
 
 Example:
