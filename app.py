@@ -335,6 +335,68 @@ def _format_followup_branch(
     return f"{name}: {{think: {_inline_value_for_cot(think)}, answer: {_inline_value_for_cot(answer)}}}"
 
 
+def _followup_answer_text(obj: Optional[Dict[str, Any]]) -> Optional[str]:
+    if obj is None or not isinstance(obj, dict):
+        return None
+    if obj.get("skipped"):
+        return None
+
+    obj = _canonicalize_followup_obj(obj)
+    answer = obj.get("answer")
+    if answer in [None, "", "NULL", {}, []]:
+        return None
+    return _stringify_problem(answer)
+
+
+def _structure_issue_text(obj: Optional[Dict[str, Any]]) -> Optional[str]:
+    if obj is None or not isinstance(obj, dict):
+        return None
+
+    problems = normalize_problem_list(obj.get("problem"))
+    if not problems:
+        return None
+
+    mapped = []
+    for problem in problems:
+        p = str(problem).strip().lower()
+        if p == "misalignment":
+            mapped.append("element positions or layout alignment shifted from the original structure")
+        elif p == "repainting":
+            mapped.append("textures or appearance details were repainted in regions that should have remained unchanged")
+        elif p not in ["", "null"]:
+            mapped.append(str(problem))
+
+    if not mapped:
+        return None
+    if len(mapped) == 1:
+        return mapped[0]
+    return "; ".join(mapped)
+
+
+def build_natural_language_summary(parsed: Dict[str, Any]) -> str:
+    issues = []
+
+    semantic = parsed.get("Semantic")
+    if semantic and semantic.get("answer") == "No":
+        semantic_text = _followup_answer_text(parsed.get("Semantic_Followup")) or _stringify_problem(semantic.get("problem"))
+        issues.append(f"Semantic-level issue detected: {semantic_text}")
+
+    structure = parsed.get("Structure")
+    if structure and structure.get("answer") == "No":
+        structure_text = _structure_issue_text(structure) or _stringify_problem(structure.get("problem"))
+        issues.append(f"Structure-level issue detected: {structure_text}")
+
+    low_level = parsed.get("Low-Level")
+    if low_level and low_level.get("answer") == "No":
+        low_level_text = _followup_answer_text(parsed.get("Low-Level_Followup")) or _stringify_problem(low_level.get("problem"))
+        issues.append(f"Low-level perception issue detected: {low_level_text}")
+
+    if not issues:
+        return "No fidelity issues detected."
+
+    return " ".join(issues)
+
+
 def build_display_rows(parsed: Dict[str, Any], fidelity_score: Optional[int]) -> List[str]:
     rows = []
     rows.append(_format_main_branch("1. Semantic Level", parsed.get("Semantic"), null_text="Skipped"))
@@ -347,6 +409,7 @@ def build_display_rows(parsed: Dict[str, Any], fidelity_score: Optional[int]) ->
         rows.append("6. Score: NULL (max 10)")
     else:
         rows.append(f"6. Score: {fidelity_score} (max 10)")
+    rows.append(f"7. Summary: {build_natural_language_summary(parsed)}")
 
     return rows
 
@@ -971,7 +1034,7 @@ HTML_PAGE = """
     <div class="panel result-panel">
       <div class="result-head">
         <h2 class="result-title">Result Summary</h2>
-        <div class="badge">6 Rows</div>
+        <div id="result_badge" class="badge">6 Rows</div>
       </div>
       <pre id="result">Waiting to run...</pre>
     </div>
@@ -981,6 +1044,7 @@ HTML_PAGE = """
     const form = document.getElementById('infer-form');
     const statusDiv = document.getElementById('status');
     const resultPre = document.getElementById('result');
+    const resultBadge = document.getElementById('result_badge');
 
     const inputFile = document.getElementById('input_image');
     const outputFile = document.getElementById('output_image');
@@ -1044,12 +1108,17 @@ HTML_PAGE = """
     function renderSummary(data) {
       if (data.display_text) {
         resultPre.textContent = data.display_text;
+        if (data.display_rows && Array.isArray(data.display_rows)) {
+          resultBadge.textContent = `${data.display_rows.length} Rows`;
+        }
         return;
       }
       if (data.display_rows && Array.isArray(data.display_rows)) {
         resultPre.textContent = data.display_rows.join('\\n');
+        resultBadge.textContent = `${data.display_rows.length} Rows`;
         return;
       }
+      resultBadge.textContent = 'Raw Output';
       resultPre.textContent = JSON.stringify(data, null, 2);
     }
 
@@ -1250,6 +1319,6 @@ export MODEL_PATH=/mnt/petrelfs/lijiayang1/stableI2I/ckpt
 export GPU_ID=0
 export HOST=10.140.60.137
 export PORT=10004
-python api.py
+python app.py
 '
 """
