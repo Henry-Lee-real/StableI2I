@@ -9,7 +9,7 @@ Looking forward to your ⭐！
 > - [X] release code  
 > - [X] release ckpt
 > - [ ] release pip-pkg
-> - [ ] release arxiv
+> - [X] release arxiv
 > - [ ] ICML version paper
 
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-StableI2I-ffcc4d?logo=huggingface&logoColor=white&style=flat)](https://huggingface.co/collections/lijiayangCS/stablei2i)
