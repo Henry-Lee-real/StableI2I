@@ -69,3 +69,17 @@ Recommended official references:
 Notes:
 - For SFT, start from the official Qwen3-VL finetuning workflow.
 - For GRPO and related alignment training, use Swift.
+
+## Citation
+If you find our work helpful for your research, please consider citing our work.
+```
+@misc{li2026stablei2ispottingunintendedchanges,
+      title={StableI2I: Spotting Unintended Changes in Image-to-Image Transition}, 
+      author={Jiayang Li and Shuo Cao and Xiaohui Li and Zhizhen Zhang and Kaiwen Zhu and Yule Duan and Yu Qiao and Jian Zhang and Yihao Liu},
+      year={2026},
+      eprint={2605.04453},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2605.04453}, 
+}
+```
