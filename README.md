@@ -73,13 +73,10 @@ Notes:
 ## Citation
 If you find our work helpful for your research, please consider citing our work.
 ```
-@misc{li2026stablei2ispottingunintendedchanges,
-      title={StableI2I: Spotting Unintended Changes in Image-to-Image Transition}, 
-      author={Jiayang Li and Shuo Cao and Xiaohui Li and Zhizhen Zhang and Kaiwen Zhu and Yule Duan and Yu Qiao and Jian Zhang and Yihao Liu},
-      year={2026},
-      eprint={2605.04453},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2605.04453}, 
+@article{li2026stablei2i,
+  title={StableI2I: Spotting Unintended Changes in Image-to-Image Transition},
+  author={Li, Jiayang and Cao, Shuo and Li, Xiaohui and Zhang, Zhizhen and Zhu, Kaiwen and Duan, Yule and Qiao, Yu and Zhang, Jian and Liu, Yihao},
+  journal={arXiv preprint arXiv:2605.04453},
+  year={2026}
 }
 ```
